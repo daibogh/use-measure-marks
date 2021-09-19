@@ -1,0 +1,20 @@
+{
+  "name": "use-measure-marks",
+  "version": "1.0.1",
+  "description": "simple react hook for performance measure analysis",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "Petr Baranov",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/react": "^17.0.21",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "react": "^17.0.2"
+  }
+}
