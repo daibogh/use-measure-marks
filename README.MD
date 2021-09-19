@@ -2,7 +2,7 @@
 ## Simple react hook for performance measure analysis.
 
 
-### Here's the example:
+Here's the example:
 
 ```jsx
 const { startMark, endMark } = useMeasureMarks({
@@ -17,5 +17,4 @@ useEffect(() => {
 },[])
 
 ```
-
-## And don't forget to switch on recording in performance tab.
+And don't forget to switch on recording in performance tab.
