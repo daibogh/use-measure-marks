@@ -1,6 +1,5 @@
-import {useCallback, useMemo} from 'react'
-export type StartMarkFunction = () => void;
-export type EndMarkFunction = () => void;
+import {useMemo} from 'react'
+export type MarkFunction = () => void;
 export type CollectPerformanceFunction = () => PerformanceEntryList;
 export function useMeasureMarks ({
   startMark,
@@ -11,31 +10,25 @@ export function useMeasureMarks ({
   endMark: string;
   measureMark: string;
 }): {
-  startMark: StartMarkFunction;
-  endMark: EndMarkFunction;
+  startMark: MarkFunction;
+  endMark: MarkFunction;
   collectPerformanceList: CollectPerformanceFunction;
 } {
-  const startMarkFn = useCallback(() => {
-    performance.mark(startMark);
-  }, [startMark]);
-  const endMarkFn = useCallback(() => {
-    performance.mark(endMark);
-    try {
-      performance.measure(measureMark, startMark, endMark);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [endMark, measureMark, startMark]);
-  const collectPerformanceList = useCallback(
-    () => performance.getEntriesByName(measureMark),
-    [measureMark]
-  );
   return useMemo(
     () => ({
-      startMark: startMarkFn,
-      endMark: endMarkFn,
-      collectPerformanceList,
+      startMark: () => {
+        performance.mark(startMark);
+      },
+      endMark: () => {
+        performance.mark(endMark);
+        try {
+          performance.measure(measureMark, startMark, endMark);
+        } catch (e) {
+          console.error(e);
+        }
+      },
+      collectPerformanceList: () => performance.getEntriesByName(measureMark),
     }),
-    [collectPerformanceList, endMarkFn, startMarkFn]
+    [startMark, endMark, measureMark]
   );
 };
